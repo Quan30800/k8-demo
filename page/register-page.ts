@@ -1,13 +1,14 @@
 import { Page } from "@playwright/test";
 import { materialsPage } from "./materialPage";
+import { info } from "console";
 
 
 export class RegisterPage extends materialsPage {
     xpathUserName = '//input[@id="username"]';
     xpathEmail = '//input[@id="email"]';
     xpathGenderMale = '//input[@id="male"]' ;
-    xpathGenderFemale = '//input[@id="female"]'
- ;    getXpathOptionHobby (hobby: "reading"| "traveling"| "cooking"){
+    xpathGenderFemale = '//input[@id="female"]';    
+    getXpathOptionHobby (hobby: "reading"| "traveling"| "cooking"){
         return `//input[@id='${hobby}']`
     }
     xpathSelectInterest = '//select[@id="interests"]' ;
@@ -49,8 +50,8 @@ export class RegisterPage extends materialsPage {
         await this.page.locator(this.getXpathOptionHobby(hobby)).check();
     }
 
-    async selectInterest(interestValue: "technology"| "travelling"| "cooking"){
-        await this.page.selectOption(this.xpathSelectCountry, interestValue);
+    async selectInterest(interestValue: "technology" | "travelling" | "cooking"){
+        await this.page.selectOption(this.xpathSelectInterest, interestValue);
     }
 
     async selectCountry(countryValue: "usa"| "canada"| "uk"| "australia"){
@@ -75,5 +76,39 @@ export class RegisterPage extends materialsPage {
     async clickButtonRegister(){
         await this.page.locator(this.xpathBtnRegister).click();
     }
+    
 
+    async fillFormRegister(information: {
+        username : string,
+        email:string,
+        gender: "Male"|"Female",
+        hobby : "reading"| "traveling" | "cooking",
+        interestValues : "technology" | "travelling" | "cooking",
+        countryValues : "usa"| "canada"| "uk",
+        date : string;
+        filePath : string;
+        bio: string;
+    }){
+        await this.fillUserName(information.username);
+        await this.fillEmail(information.email);
+        await this.checkGender(information.gender);
+        await this.checkHobbies(information.hobby);
+        await this.selectInterest(information.interestValues);
+        await this.selectCountry(information.countryValues);
+        await this.fillDateOfBirth(information.date);
+        await this.chooseFile(information.filePath);
+        await this.fillBiography(information.bio);
+        await this.clickButtonRegister();
+    }
+
+    async getNewestIntable(){
+        const numberOfRow = await this.page.locator("//tbody/tr").count();
+        let userInfo = {
+            username: await this.page.locator( `//tbody/tr[${numberOfRow}]/td[2]`).textContent(),
+            email : await this.page.locator( `//tbody/tr[${numberOfRow}]/td[3]`).textContent(),
+            information : await this.page.locator( `//tbody/tr[${numberOfRow}]/td[4]`).textContent(),
+        }
+
+        return userInfo;
+    }
 }
