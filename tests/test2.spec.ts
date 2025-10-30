@@ -1,5 +1,5 @@
 import { ProductPage } from "../page/productrpage";
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test' 
 
 
 test ('Product page', async({page})=> {
@@ -24,7 +24,7 @@ test ('Product page', async({page})=> {
     ]
 
     await test.step("Truy cập  trang web ProductPage", async()=>{
-        productPage.gotoProductPage();
+       await productPage.gotoProductPage();
     })
 
     await test.step("Thêm sản phẩm vào giỏ hàng", async()=>{
@@ -35,7 +35,7 @@ test ('Product page', async({page})=> {
 
     await test.step("Kiểm tra số lượng sản phẩm tại giỏ hàng đúng", async()=>{
         for(let i = 0; i< arrayProduct.length; i++){
-        const actualQuantityProduct = (await productPage.getProductInfor(arrayProduct[i].name)).quanity;
+        const actualQuantityProduct = (await productPage.getProductInfor(arrayProduct[i].name)).quantity;
         const expectedQuantityProduct = arrayProduct[i].quantity;
         expect(actualQuantityProduct).toEqual(expectedQuantityProduct.toString()); 
         }
@@ -49,6 +49,17 @@ test ('Product page', async({page})=> {
         expect(actualTotalProduct).toEqual(expectedtotalProduct);
 
         }
+    })
+
+    await test.step("Kiểm tra tổng tiền tại giỏ hàng trong rổ", async () => {
+        // Tổng tiền hiển thị trên UI
+        const actualTotalInBasket = await productPage.getTotalProductInBasket();
+
+        // Tổng tiền mong đợi tính từ arrayProduct
+        const expectedTotalInBasket = arrayProduct.reduce(
+        (sum, p) => sum + p.price * p.quantity,0);
+
+        expect(actualTotalInBasket).toBeCloseTo(expectedTotalInBasket, 2);
+    });
 
     })
-})

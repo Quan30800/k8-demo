@@ -12,21 +12,25 @@ export class ProductPage extends materialsPage{
         await this.gotoPage("Product Page");
     }
 
-    async addProductToCart(productName : string, quanity : number){
-        await this.page.locator(`//div[@class='${productName}']/following-sibling::button`).click({clickCount:quanity}); 
+    async addProductToCart(productName : string, quantity : number){
+        await this.page.locator(`//div[@class='${productName}']/following-sibling::button`).click({clickCount: quantity}); 
     }
 
     async getProductInfor(productName : string){
        const Price = await this.page.locator(`//td[contains(text(),'${productName}')]/following-sibling::td[1]`).textContent();
-       const quanity =  await this.page.locator(`//td[contains(text(),'${productName}')]/following-sibling::td[2]`).textContent();
+       const quantity =  await this.page.locator(`//td[contains(text(),'${productName}')]/following-sibling::td[2]`).textContent();
        const total =  await this.page.locator(`//td[contains(text(),'${productName}')]/following-sibling::td[3]`).textContent();
        const inforProduct = { 
         Price,
-        quanity,
+        quantity,
         total
        }
        return inforProduct;
     }
-    // asynce totalinBasket(){ const total = await this.getProductInfor()  }
+    async getTotalProductInBasket(){
+        const getTotalProductInBasket = await this.page.locator("//td[@class='total-price']").textContent();
+        return getTotalProductInBasket; 
+
+    }
 
 }

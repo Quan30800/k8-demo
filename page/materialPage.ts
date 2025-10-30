@@ -12,7 +12,7 @@
     }
 
     async gotoPage(pageName : string ){
-        await this.page.locator(`//a[contains(., 'Register')]`).click();
+        await this.page.locator(`//a[contains(.,${pageName})`).click();
     }
     
 

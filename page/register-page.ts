@@ -1,7 +1,5 @@
 import { Page } from "@playwright/test";
 import { materialsPage } from "./materialPage";
-import { info } from "console";
-
 
 export class RegisterPage extends materialsPage {
     xpathUserName = '//input[@id="username"]';
