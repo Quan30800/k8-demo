@@ -20,9 +20,9 @@ test("Exercise 1: Register Page", async ({ page }) => {
     await registerPage.fillEmail(email);
     await registerPage.checkGender("Female");
     await registerPage.checkHobbies("cooking");
-    await registerPage.selectInterest("cooking");
+    await registerPage.selectInterest("technology");
     await registerPage.selectCountry("usa");
-    await registerPage.chooseFile("test-data/vsc.jpg");
+    await registerPage.chooseFile("tests/file.ts");
     await registerPage.fillDateOfBirth(date);
     await registerPage.fillBiography(description);
     await registerPage.checkNewsLetter();

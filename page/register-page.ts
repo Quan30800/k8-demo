@@ -15,7 +15,7 @@ export class RegisterPage extends materialsPage {
     xpathSelectCountry = '//select[@id="country"]' ;
     xpathDateOfBirth = '//input[@id="dob"]' ;
     xpathProfilePicture ='//input[@id="profile"]' ;
-    xpathBiography = '//input[@id="bio"]' ;
+    xpathBiography = '//textarea[@id="bio"]';
     xpathNewsletter = '//input[@id="newsletter"]'
     xpathBtnRegister = "//button[@type='submit']" ;
 
@@ -38,11 +38,11 @@ export class RegisterPage extends materialsPage {
 
     async checkGender(gender : "Male"| "Female"){
         if(gender == "Male") {
-            await this.page.locator(this.xpathGenderMale).click
+            await this.page.locator(this.xpathGenderMale).click();
         }
 
         if(gender == "Female") {
-            await this.page.locator(this.xpathGenderFemale).click
+            await this.page.locator(this.xpathGenderFemale).click();
         }
     }
 
@@ -50,7 +50,7 @@ export class RegisterPage extends materialsPage {
         await this.page.locator(this.getXpathOptionHobby(hobby)).check();
     }
 
-    async selectInterest(interestValue: "technology" | "travelling" | "cooking"){
+    async selectInterest(interestValue: "technology" | "science" | "art"){
         await this.page.selectOption(this.xpathSelectInterest, interestValue);
     }
 
@@ -63,7 +63,7 @@ export class RegisterPage extends materialsPage {
     }
 
     async chooseFile(filePath: string){
-        await this.page.locator(this.xpathProfilePicture).fill(filePath);
+        await this.page.setInputFiles('//input[@id="profile"]', filePath);
     }
 
     async fillBiography(bio : string){
@@ -83,7 +83,7 @@ export class RegisterPage extends materialsPage {
         email:string,
         gender: "Male"|"Female",
         hobby : "reading"| "traveling" | "cooking",
-        interestValues : "technology" | "travelling" | "cooking",
+        interestValue : "technology" | "science" | "art",
         countryValues : "usa"| "canada"| "uk",
         date : string;
         filePath : string;
@@ -93,7 +93,7 @@ export class RegisterPage extends materialsPage {
         await this.fillEmail(information.email);
         await this.checkGender(information.gender);
         await this.checkHobbies(information.hobby);
-        await this.selectInterest(information.interestValues);
+        await this.selectInterest(information.interestValue);
         await this.selectCountry(information.countryValues);
         await this.fillDateOfBirth(information.date);
         await this.chooseFile(information.filePath);
@@ -108,7 +108,6 @@ export class RegisterPage extends materialsPage {
             email : await this.page.locator( `//tbody/tr[${numberOfRow}]/td[3]`).textContent(),
             information : await this.page.locator( `//tbody/tr[${numberOfRow}]/td[4]`).textContent(),
         }
-
         return userInfo;
     }
 }

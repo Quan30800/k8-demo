@@ -2,11 +2,6 @@
 
  export class materialsPage{
     page : Page;
-    xpathRegisterPage : string ;
-    xpathProductPage : string ;
-    cssTodoPage : string;
-    personalNote : string;
-
 
     constructor(page:Page){
         this.page = page;
@@ -17,7 +12,7 @@
     }
 
     async gotoPage(pageName : string ){
-        await this.page.locator(`//a[contains(text(),${pageName})]`).click();
+        await this.page.locator(`//a[contains(., 'Register')]`).click();
     }
     
 
