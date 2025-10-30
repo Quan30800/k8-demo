@@ -49,9 +49,6 @@ test("Exercise 1: Register Page", async ({ page }) => {
     expect(actualInformation).toContain(date);
     expect(actualInformation).toContain(description);
     expect(actualInformation).toContain("Yes");
-
-
-
   })
    
 
