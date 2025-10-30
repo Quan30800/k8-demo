@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 import { materialsPage } from "./materialPage";
 
 export class toDopage extends materialsPage {
-    constructor(page : Page ){
+    constructor(page : page ){
         super(page);
     }
 
