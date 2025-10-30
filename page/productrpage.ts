@@ -9,7 +9,7 @@ export class ProductPage extends materialsPage{
 
     async gotoProductPage(){
         await this.openMaterialPage();
-        await this.gotoPage("Product Page");
+        await this.gotoPage("Product page");
     }
 
     async addProductToCart(productName : string, quantity : number){

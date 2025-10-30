@@ -8,7 +8,7 @@ export class toDopage extends materialsPage {
 
     async goToToDoPage(){
          await this.openMaterialPage();
-        await this.gotoPage("Todo Page");
+        await this.gotoPage("Todo page");
     }
 
 
@@ -17,17 +17,15 @@ export class toDopage extends materialsPage {
     }
 
     async clickonAddbutton(){
-        await this.page.locator("//input[@id='Add task']").click();
+        await this.page.locator("//button[@id='add-task']").click();
     }
 
-    async iteminViewport(i : number){
-         return await this.page.locator(`//ul[@id="task-list"]/li[${i}]/span`)
-       
-    }
+    async iteminViewport(todoNumber: number) {
+        return this.page.locator(`//ul[@id="task-list"]/li/span[normalize-space(.)='to do <${todoNumber}>']`);
+        }
 
     async setDialog(){
       this.page.on('dialog', async (dialog) => {
-      console.log(dialog.message());
       await dialog.accept(); // Tự động nhấn OK
     });
 
