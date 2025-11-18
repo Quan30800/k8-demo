@@ -32,9 +32,9 @@
             await expect(xpathtodo90).toBeInViewport({timeout : 1000}); 
         })
 
-        await test.step('Kiem tra todo co so thu tu 21 nam trong view port', async()=>{
+        await test.step('Kiem tra todo co so thu tu 21 bi an va ko nam trong view port', async()=>{
             const xpathtodo21 =todoPage.getLocatorTask("Todo 21");
-            await expect(xpathtodo21).not.toBeInViewport({timeout : 1000}); 
+            await expect(xpathtodo21).not.toBeAttached(); 
         })
 
     })

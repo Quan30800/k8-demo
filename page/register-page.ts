@@ -17,8 +17,8 @@ export class RegisterPage extends materialsPage {
     xpathNewsletter = '//input[@id="newsletter"]'
     xpathBtnRegister = "//button[@type='submit']" ;
 
-    constructor(page: page){
-        super(page); 
+    constructor(page: Page){
+        super(page);  
     }
 
     async gotoRegisterPage(){

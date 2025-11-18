@@ -68,4 +68,15 @@ test("Add personal notes", async ({ page })=>{
         await personalNotePage.clickAddNote();
     }
    } 
+
+   await test.step("Thuc hien search theo tieu de bai bao bat ky", async()=>{
+        await personalNotePage.searchNote("Viet");
+   })
+
+   await test.step("kiem tra tat ca cac bai viet search dc chua keyword da tien kiem", async()=>{
+        const ListTitle = await personalNotePage.getAllTitlesInlist();
+        for ( let i = 0; i < ListTitle.length; i++){
+            expect(ListTitle[i]).toContain("Viet");
+        }
+   })
 })

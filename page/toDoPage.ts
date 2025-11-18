@@ -53,7 +53,7 @@ export class TodoPage extends materialsPage {
         await this.gotoPage("Todo page");
     }
 
-    async addNewtasks(content:string){
+    async addNewtasks(content: string){
         await this.page.locator(this.xpathEnterANewtask).fill(content);
         await this.page.locator(this.addNewtasks).click();
     }
